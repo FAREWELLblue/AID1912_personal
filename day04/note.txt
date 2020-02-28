@@ -1,0 +1,5 @@
+git clone https://github.com/lvze0321/AID1912.git
+在AID1912下使用命令：git pull
+
+网络编程基础：
+    OSI模型

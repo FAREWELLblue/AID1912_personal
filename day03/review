@@ -1,0 +1,42 @@
+前情回顾
+
+1.shell命令
+    chmod  cat。。。等
+    管道|
+    输出重定向
+2.几组命令
+    压缩解压：zip unzip
+            tar--->(gz,bz2)
+            tar -czf file.tar.gz filelist
+            tar -cjf file.tar.bz2 filelist
+            tar -xvf 解压无论格式
+    软件安装：   dpkg -i安装
+                dpkg -P卸载
+                apt-get update更新
+                apt-get install 安装
+                apt-get remove --purge卸载
+    用户管理：   adduser(vi -->/etc/sudoers给新用户增加sudo权限)
+                deluser(delgroup删除用户组   sudo vipw删除配置用户信息)
+    ssh服务：  username@ip
+                ssh username@ip
+                scp
+                ssh-keygen设置秘钥
+3.  IO
+        IO密集型程序：不占用cpu，耗时长
+        计算密集型程序：占用cpu，耗时短
+    文件  ： 文本文件    二进制文件
+    字节串 ：表达二进制数据的
+            str-->字节串   encode（）
+            字符串-->str   decode（）
+            所有的字符串都能转换为字节串
+         但  不是所有的字节串都字符串
+
+
+
+
+
+
+
+
+
+

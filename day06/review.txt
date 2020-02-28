@@ -1,0 +1,17 @@
+前情回顾：
+
+1.  TCP编程细节
+
+    缓冲区：协调消息的收发速度
+    粘包： tcp特有现象
+
+2.  套接字属性：fileno()  getpeername()   setsockopt()
+
+3.  tcp和udp的编程差异：
+    udp不需要连接
+
+4.  struct模块：
+    pack()
+    unpack()
+
+5.  http协议：应用层协议，规定传输层使用TCP协议

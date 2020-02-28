@@ -1,0 +1,171 @@
+
+通配符：
+    *--任意一个字符
+    [1-4]---1到4中任意字符
+    ？---
+
+ls -l---》文件详细信息
+输出重定向：
+    > 将原本应该向终端输出的内容写入文件内
+    >> 将原本应该向终端输出的内容追加到文件内
+
+
+echo-->向终端打印    -n 在后面输出
+
+find . -name file(常用)
+find-->查找文件    .--->当前路径    -name--->根据名字查找     file--->文件名
+
+file note
+file-->文件信息
+
+cat note.txt
+cat--->在终端查看文件内容（常用）
+
+head -n file
+head--->查看文件前几行  file--->文件名  -n--->行数，默认10行
+
+tail -n file
+tail--->查看文件后几行  file--》文件名 -n--->行数，默认10行
+
+wc  -c 表示查看多少字符，-l查看多少行，-w查看多少单词数
+
+grep -n 'hello' file
+grep -->查找展示    -n显示行号  'hello'查找的内容    file查找的文件
+
+命令管道：
+    | 把前一个命令得到的结果作为后面命令的参数
+    例：ls | wc -w
+        查看当前目录下有多少文件
+
+chmod:文件权限
+    ls -l中前几个字符为权限，依次是ugo
+    u表示该文件拥有者
+    g表示该文件的拥有者属于同一个群体者
+    o表示其他以外的人
+    a表示这三者皆是
+    +表示增加权限，-表示取消权限，=表示唯一设定权限
+    r读w写x表示可执行
+chmod [权限声明] [file] 修改一个文件权限
+    权限声明：a+x
+        或例：-rw-rw-r--可表示为二进制的110 110 100即664
+    chmod a+x file 或 chmod 664 file
+
+df 显示磁盘情况 -T文件系统类型  -h以M为单位显示
+date：显示时间
+whoami：显示当前用户
+which：查看命令位置
+whereis:查看命令相关目录
+ln -s hello.py hello创建快捷方式（链接文件）
+    hello即hello.py的快捷方式
+
+压缩命令：
+zip：将文件压缩为zip格式
+    zip test.zip（压缩包名） 文件列表（如果是文件夹要加-r）
+unzip：将zip格式文件解压
+
+gzip:将文件压缩为gz格式，不可以压缩文件夹
+    gzip file
+gunzip：将gz文件解压
+    gunzip file.gz
+
+bzip2在性能上优于gzip，提供了最大限度的压缩比率，但是压缩速度慢
+bzip2:将文件压缩为bz2格式
+    bzip2 file
+bunzip2:
+    bunzip2 file.bz2
+
+tar命令：主要进行压缩和解压,可压缩多个，且源文件不丢失
+    -t 显示归档文件中的内容
+    -x  释放归档文件（解压）
+    -u  更新归档文件
+    -c  创建归档
+    -v  显示归档和释放过程信息
+    -f  用户制定归档文件文件名
+    -j  压缩为
+    -z  压缩为gz格式
+    例：tar -czf file.tar.gz file
+        tar -xvf file.tar.gz
+
+Linux 下安装的软件包是deb格式
+dpkg
+    本地：dpkg-i<名>
+    卸载：dpkg-r<名>
+    卸载并清除： dpkg-P<名>
+apt命令
+    升级软件包   apt-get update
+    安装软件    apt-get install
+    卸载      apt-get remove --purge
+    下载源码包   apt-get source
+    删除缓存的软件安装包  apt-get clean
+
+添加用户
+adduser --home /home/levi --ingroup
+--home：主目录创建在home/levi（一般情况下用户名和家目录下文件相同），用户名必须小写字母
+--ingroup:添加用户组，默认与用户名相同
+配置该用户的管理员权限（在有sudo权限的用户做）
+    sudo vi /etc/sudoers
+    在其中 root ALL=(ALL:ALL) ALL下
+        增加levi ALL=(ALL:ALL) ALL
+        后强制保存然后退出
+修改密码：sudo passwd levi
+更改文件用户权限：sudo chown levi:levi hello.py
+删除用户：
+    deluser  --remove-home levi
+    --remove-home:删除用户同时删除主目录
+    delgroup levi:删除组
+    sudo vipw:删除配置文件，找到levi用户哪一行，删除
+        ctrl+o 保存 ctrl+x 退出
+
+
+
+SSH服务
+网络远程访问服务器的网络协议
+服务器和个人主机中要安装ssh服务功能
+
+sudo apt-get install openssh-server
+查看ssh服务状态：ps -e|grep ssh
+    如果有sshd说明已经启动
+启动和关闭：
+sudo service ssh start-->启动
+sudo service ssh stop-->停止
+sudo service ssh restart-->重启
+
+ssh [-p port]tarena@127.0.0.1
+    被访问端的用户名@ip地址
+    访问port端口
+把本地传输给远程
+scp localfile username@tohostname:/newfilename
+把远程文件传输给本地
+scp username@tohostname:/remotefile/localfile .
+
+配置ssh秘钥：方便访问服务器
+个人电脑；生成秘钥对：ssh-keygen，生成id_rsa:私钥，id_rsa.pub：公钥
+把~/.ssh下的公钥放到服务器端
+服务器端：cat id_rsa.pub > authorized_keys
+    将公钥写入到authorized_keys文件中
+---------------------------------------------------------------------------------------
+IO
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
