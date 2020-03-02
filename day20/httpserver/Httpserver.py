@@ -28,7 +28,7 @@ def connect_frame(env):
         data = json.dumps(env)
         s.send(data.encode())
         # 等待接收数据
-        data = s.recv(1024 * 1024 * 10)
+        data = s.recv(1024 * 1024 * 10).decode()
         return json.loads(data)# 转换成字典返回
     except:
         return
