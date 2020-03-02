@@ -10,10 +10,9 @@ from socket import *
 import json
 from threading import Thread
 from settings import *  # 配置文件
+from urls import *
 
 ADDR = (frame_ip, frame_port)  # Wenframe地址
-
-
 
 
 # 将功能封装成类
@@ -52,37 +51,40 @@ class Application:
         if request['method'] == 'GET':
             # 表示判定为一个网页
             if request['info'] == '/' or request['info'][-5:] == '.html':
-                response = self.get_html(request['info'])
-            else:# 请求非网页内容
-                response = {'status':'404','data':'xxxx'}
+                response = self.get_html()
+            else:  # 请求非网页内容
+                response=self.get_data(request['info'])
 
         elif request['method'] == 'POST':
             pass
         else:
             pass
         # 将数据给HTTPserver
-        response=json.dumps(response)
-        connfd.send(response.endcode())
+        response = json.dumps(response)
+        connfd.send(response.encode())
         connfd.close()
 
-    # 组织给浏览器的响应格式
-    def response(self, connfd, data):
-        if data['status'] == '200':
-            res = "HTTP/1.1 200 OK\r\n"
-            res += "Content-Type:text/html\r\n"
-            res += "\r\n"
-            res += data['data']
-        elif data['status'] == '404':
-            res = "HTTP/1.1 404 Not Found\r\n"
-            res += "Content-Type:text/html\r\n"
-            res += "\r\n"
-            res += data['data']
-        else:
-            res = ''
-        connfd.send(res.encode())
 
     # 处理网页
-    def get_html(self,info):
-        pass
+    def get_html(self, info):
+        if info == '/':
+            filename = dir + '/index.html'
+        else:
+            filename = dir + info
+
+        try:
+            f = open(filename)  # 尝试打开目标网页
+        except:
+            fd = open(dir + '/404.html')
+            return {'status': '404', 'data': fd.read()}
+        else:
+            return {'status': '200', 'data': f.read()}
+
+    # 处理非网页情形
+    def get_data(self,info):
+        for url,func in urls:
+            if url == info:
+                return {'status':'200','data':func()}
+        return {'status':'404','data':'sorry..'}
 app = Application()
 app.start()
