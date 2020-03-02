@@ -51,7 +51,7 @@ class Application:
         if request['method'] == 'GET':
             # 表示判定为一个网页
             if request['info'] == '/' or request['info'][-5:] == '.html':
-                response = self.get_html()
+                response = self.get_html(request['info'])
             else:  # 请求非网页内容
                 response=self.get_data(request['info'])
 
